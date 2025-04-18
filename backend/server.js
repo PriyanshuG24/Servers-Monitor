@@ -11,7 +11,7 @@ const port = 5000;
 
 // Middleware
 const allowedOrigins = [
-  "https://servers-monitor.vercel.app", 
+  "https://servers-monitor.vercel.app/", 
   "http://localhost:5173", 
 ];
 app.use(
