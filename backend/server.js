@@ -10,28 +10,9 @@ const app = express();
 const port = 5000;
 
 // Define allowed origins
-const allowedOrigins = [
-  "https://servers-monitor.vercel.app",  // Production frontend URL
-  "http://localhost:5173",  // Local development frontend URL
-];
-
-// CORS options with dynamic origin check
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
-      // Allow requests with no origin (e.g., mobile apps or Postman)
-      callback(null, true);
-    } else {
-      // Reject requests from other origins
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: 'GET,POST,PUT,DELETE',  // Allow only the specified methods
-};
-
-// Middleware
-app.use(cors(corsOptions));
-app.options('*', cors());  // Pre-flight request handling
+res.setHeader('Access-Control-Allow-Origin', 'https://servers-monitor.vercel.app/');
+res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Pre-flight request handling
 app.use(express.json());
 
 // Routes
