@@ -6,14 +6,32 @@ require('dotenv').config();
 // Import MongoDB connection
 require('./config/db');  // This will establish the connection to MongoDB
 
-const app = express();
 const port = 5000;
 
-// Define allowed origins
-res.setHeader('Access-Control-Allow-Origin', 'https://servers-monitor.vercel.app/');
-res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Pre-flight request handling
+const app = express();
 app.use(express.json());
+
+const allowedOrigins = [
+  "https://ai-news-letter-agent.vercel.app", 
+  "http://localhost:5173", 
+];
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.log("Blocked origin:", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "OPTIONS"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
+  })
+);
+
+app.options("*", cors());
 
 // Routes
 const alertRoutes = require('./routes/alertsRoutes');
