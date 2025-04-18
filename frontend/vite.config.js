@@ -8,7 +8,10 @@ export default defineConfig({
   ],
   server: {
     proxy: {
-      '/api': 'http://localhost:5000',
+      '/api': {
+        target: 'https://servers-monitor-hk7v.vercel.app', // Your backend server URL
+        changeOrigin: true,
+      },
     },
   },
 })
