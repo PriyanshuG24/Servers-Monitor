@@ -11,23 +11,11 @@ const port = 5000;
 
 // Middleware
 const allowedOrigins = [
-  "https://servers-monitor.vercel.app/", 
+  "https://servers-monitor.vercel.app", 
   "http://localhost:5173", 
 ];
 app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        console.log("Blocked origin:", origin);
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    methods: ["GET", "POST", "OPTIONS"],
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"]
-  })
+  cors()
 );
 
 app.options("*", cors());
