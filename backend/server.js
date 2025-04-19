@@ -33,7 +33,7 @@ app.use(
 );
 
 // Add OPTIONS preflight handling
-app.options("*", cors());
+// app.options("*", cors());
 
 // Routes
 const alertRoutes = require('./routes/alertsRoutes');
