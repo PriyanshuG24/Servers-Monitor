@@ -11,27 +11,27 @@ const port = 5000;
 const app = express();
 app.use(express.json());
 
-// const allowedOrigins = [
-//   "https://servers-monitor.vercel.app", 
-//   "http://localhost:5173", 
-// ];
-// app.use(
-//   cors({
-//     origin: function (origin, callback) {
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true);
-//       } else {
-//         console.log("Blocked origin:", origin);
-//         callback(new Error("Not allowed by CORS"));
-//       }
-//     },
-//     methods: ["GET", "POST", "OPTIONS"],
-//     credentials: true,
-//     allowedHeaders: ["Content-Type", "Authorization"]
-//   })
-// );
+const allowedOrigins = [
+  "https://servers-monitor.vercel.app", 
+  "http://localhost:5173", 
+];
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        console.log("Blocked origin:", origin);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "OPTIONS"],
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"]
+  })
+);
 
-// app.options("*", cors());
+app.options("*", cors());
 
 // Routes
 const alertRoutes = require('./routes/alertsRoutes');
