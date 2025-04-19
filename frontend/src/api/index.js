@@ -1,5 +1,5 @@
 export const getAlerts = async () => {
-  const res = await fetch('/api/alerts');
+  const res = await fetch('https://servers-monitor-hk7v.vercel.app/api/alerts');
   if (!res.ok) throw new Error('Failed to fetch alerts');
   return res.json();
 };
