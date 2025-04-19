@@ -6,12 +6,13 @@ export default defineConfig({
   plugins: [react(),
     tailwindcss(),
   ],
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://servers-monitor-hk7v.vercel.app/', // Your backend server URL
-        changeOrigin: true,
-      },
-    },
-  },
+   server: {
+        proxy: {
+            '/api': {
+                target: 'https://servers-monitor-hk7v.vercel.app',
+                changeOrigin: true,
+                rewrite: (path) => path.replace(/^\/api/, '')
+            }
+        }
+    }
 })
