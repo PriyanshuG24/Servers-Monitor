@@ -39,6 +39,9 @@ app.use(
 const alertRoutes = require('./routes/alertsRoutes');
 const serverRoutes = require('./routes/serversRoutes');
 const metricRoutes = require('./routes/metricsRoutes');
+app.get('/', (req, res) => {
+  res.send('Hello World')
+})
 app.use('/api/alerts', alertRoutes);
 app.use('/api/servers', serverRoutes);
 app.use('/api/metrics', metricRoutes);
