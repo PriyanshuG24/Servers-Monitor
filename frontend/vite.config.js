@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://servers-monitor-hk7v.vercel.app',
+        target: 'https://servers-monitor-idq2.vercel.app/',
         changeOrigin: true,
         secure: false
       }
