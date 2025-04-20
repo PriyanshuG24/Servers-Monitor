@@ -7,7 +7,7 @@ require('dotenv').config();
 require('./config/db');  // Establish MongoDB connection
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // Middleware
 const allowedOrigins = ['http://localhost:3000', 'https://servers-monitor.vercel.app'];
