@@ -6,11 +6,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {
-      '/api': {
-        target: 'https://servers-monitor-idq2.vercel.app/',
-        changeOrigin: true,
-        secure: false
-      }
+      '/api':'https://servers-monitor-5.onrender.com'
     }
   }
 });
