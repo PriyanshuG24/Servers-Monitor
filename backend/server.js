@@ -11,7 +11,7 @@ const port = 5000;
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:5173', // replace with your actual frontend URL in production
+  origin: 'http://localhost:3000', // replace with your actual frontend URL in production
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 }));
