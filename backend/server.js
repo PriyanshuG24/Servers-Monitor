@@ -6,6 +6,7 @@ require('dotenv').config();
 // Import MongoDB connection
 require('./config/db');  // This will establish the connection to MongoDB
 
+const app = express(); // Initialize app here
 const port = 5000;
 
 // Middleware
@@ -52,4 +53,3 @@ mongoose.connection.once('open', () => {
     routes.forEach(r => console.log(' -', r));
   });
 });
-
