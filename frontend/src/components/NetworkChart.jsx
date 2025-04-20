@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { getMetrics } from '../api';
 
 const NetworkChart = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    getMetrics()
-      .then(data => setData(data))
-      .catch(console.error);
+    const getMetrics = async () => {
+      const res = await fetch('/api/metrics');
+      if (!res.ok) throw new Error('Failed to fetch metrics');
+      const data = await res.json();
+      setData(data);
+    };
+    getMetrics().catch(console.error);
   }, []);
 
   return (

@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { getAlerts } from '../api';
 
 const AlertSummary = () => {
   const [alerts, setAlerts] = useState({});
 
   useEffect(() => {
-    getAlerts()
-      .then(data => setAlerts(data))
-      .catch(console.error);
+    const getAlerts = async () => {
+      const res = await fetch('/api/alerts');
+      if (!res.ok) throw new Error('Failed to fetch alerts');
+      const data = await res.json();
+      setAlerts(data);
+    };
+    getAlerts().catch(console.error);
   }, []);
 
   const countBySeverity = (level) => alerts[level] || 0;
 
   const getBgColor = (severity) => {
     switch (severity) {
-      case 'critical':
-        return '#BF0000'; // red
-      case 'medium':
-        return '#2b6cb0'; // blue
-      case 'low':
-        return '#00B050'; // green
-      default:
-        return '#ccc';
+      case 'critical': return '#BF0000';
+      case 'medium': return '#2b6cb0';
+      case 'low': return '#00B050';
+      default: return '#ccc';
     }
   };
 

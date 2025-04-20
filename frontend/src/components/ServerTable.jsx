@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { getServers } from '../api';
 
 const ServerTable = () => {
   const [servers, setServers] = useState([]);
 
   useEffect(() => {
-    getServers()
-      .then(data => setServers(data))
-      .catch(console.error);
+    const getServers = async () => {
+      const res = await fetch('/api/servers');
+      if (!res.ok) throw new Error('Failed to fetch servers');
+      const data = await res.json();
+      setServers(data);
+    };
+    getServers().catch(console.error);
   }, []);
 
   const getUsageColor = (value) => {
