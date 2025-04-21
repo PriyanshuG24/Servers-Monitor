@@ -3,15 +3,25 @@ import ReactSpeedometer from 'react-d3-speedometer';
 
 const GaugeChart = () => {
   const [data, setData] = useState([]);
+  const BASE_URL = 'https://servers-monitor-idq2.vercel.app';
 
   useEffect(() => {
     const getMetrics = async () => {
-      const res = await fetch('/api/metrics');
-      if (!res.ok) throw new Error('Failed to fetch metrics');
-      const data = await res.json();
-      setData(data);
+      try {
+        const res = await fetch(`${BASE_URL}/api/metrics`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!res.ok) throw new Error('Failed to fetch metrics');
+        const data = await res.json();
+        setData(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
-    getMetrics().catch(console.error);
+    getMetrics();
   }, []);
 
   if (data.length === 0) return null;

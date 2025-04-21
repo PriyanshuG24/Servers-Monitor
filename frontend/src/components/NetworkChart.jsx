@@ -3,15 +3,23 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 
 const NetworkChart = () => {
   const [data, setData] = useState([]);
+  const BASE_URL = 'https://servers-monitor-idq2.vercel.app';
 
   useEffect(() => {
     const getMetrics = async () => {
-      const res = await fetch('/api/metrics');
-      if (!res.ok) throw new Error('Failed to fetch metrics');
-      const data = await res.json();
-      setData(data);
+      try {
+        const res = await fetch(`${BASE_URL}/api/metrics`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (!res.ok) throw new Error('Failed to fetch metrics');
+        const data = await res.json();
+        setData(data);
+      } catch (err) {
+        console.error(err);
+      }
     };
-    getMetrics().catch(console.error);
+    getMetrics();
   }, []);
 
   return (

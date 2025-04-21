@@ -2,15 +2,23 @@ import React, { useEffect, useState } from 'react';
 
 const ServerTable = () => {
   const [servers, setServers] = useState([]);
+  const BASE_URL = 'https://servers-monitor-idq2.vercel.app';
 
   useEffect(() => {
     const getServers = async () => {
-      const res = await fetch('/api/servers');
-      if (!res.ok) throw new Error('Failed to fetch servers');
-      const data = await res.json();
-      setServers(data);
+      try {
+        const res = await fetch(`${BASE_URL}/api/servers`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (!res.ok) throw new Error('Failed to fetch servers');
+        const data = await res.json();
+        setServers(data);
+      } catch (err) {
+        console.error(err);
+      }
     };
-    getServers().catch(console.error);
+    getServers();
   }, []);
 
   const getUsageColor = (value) => {

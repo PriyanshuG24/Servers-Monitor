@@ -2,15 +2,26 @@ import React, { useEffect, useState } from 'react';
 
 const AlertSummary = () => {
   const [alerts, setAlerts] = useState({});
+  const BASE_URL = 'https://servers-monitor-idq2.vercel.app';
 
   useEffect(() => {
     const getAlerts = async () => {
-      const res = await fetch('/api/alerts');
-      if (!res.ok) throw new Error('Failed to fetch alerts');
-      const data = await res.json();
-      setAlerts(data);
+      try {
+        const res = await fetch(`${BASE_URL}/api/alerts`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!res.ok) throw new Error('Failed to fetch alerts');
+        const data = await res.json();
+        setAlerts(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
-    getAlerts().catch(console.error);
+
+    getAlerts();
   }, []);
 
   const countBySeverity = (level) => alerts[level] || 0;
