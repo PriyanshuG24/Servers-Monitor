@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 
 const AlertSummary = () => {
   const [alerts, setAlerts] = useState({});
-  const URL= import.meta.env.VITE_BACKEND_URL; 
+  const BASE_URL = 'https://servers-monitor-idq2.vercel.app';
 
   useEffect(() => {
     const getAlerts = async () => {
       try {
-        const res = await fetch(`${URL}/api/alerts`, {
+        const res = await fetch(`${BASE_URL}/api/alerts`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

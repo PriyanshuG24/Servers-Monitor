@@ -3,11 +3,12 @@ import ReactSpeedometer from 'react-d3-speedometer';
 
 const GaugeChart = () => {
   const [data, setData] = useState([]);
-  const URL= import.meta.env.VITE_BACKEND_URL; 
+  const BASE_URL = 'https://servers-monitor-idq2.vercel.app';
+
   useEffect(() => {
     const getMetrics = async () => {
       try {
-        const res = await fetch(`${URL}/api/metrics`, {
+        const res = await fetch(`${BASE_URL}/api/metrics`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
